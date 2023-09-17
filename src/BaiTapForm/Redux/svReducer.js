@@ -43,7 +43,7 @@ export let svReducer = (state = initialState, { type, payload }) => {
       let cloneDssv = [...state.dssv] 
       cloneDssv[payload.index] = payload.sv
       message.success("Cập nhật thành công")
-      return {...state, dssv: cloneDssv,validThem:"",validCapNhat:"disable"}
+      return {...state, dssv: cloneDssv,validThem:"",validCapNhat:"disable",ma:"",ten:"",sdt:"",mail:""}
     }
   default:
     return state
