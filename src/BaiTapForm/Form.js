@@ -1,44 +1,35 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { THEM_SV } from './Redux/constant';
+import { CAPNHAT_SV, CHANGE_FORM, THEM_SV } from './Redux/constant';
 
 export class Form extends Component {
-  state = {
-      ma: "",
-      ten: "",
-      sdt: "",
-      mail: "",
-  }
-  handleChangeForm = (e) => {
-    console.log(e.target);
-    var {name,value} = e.target
-    this.setState({
-        [name]:value
-    })
-  }
   render() {
+    
+    let {ma,ten,sdt,mail} = this.props
+    console.log(this.props);
     return (
       <div>
         <h1 className='bg-dark text-light'>THÔNG TIN SINH VIÊN</h1>
         <div className='row'>
                 <div className="form-group col-6 text-left">
                     <label htmlFor>Mã SV</label>
-                    <input onChange={this.handleChangeForm} name="ma" value={this.state.ma} type="text" className="form-control" id placeholder />
+                    <input onChange={this.props.handleChangeForm} name="ma" value={ma} type="text" className="form-control" id placeholder />
                 </div>
                 <div className="form-group col-6 text-left">
                     <label htmlFor>Họ Tên</label>
-                    <input onChange={this.handleChangeForm} name="ten" value={this.state.ten} type="text" className="form-control" id placeholder />
+                    <input onChange={this.props.handleChangeForm} name="ten" value={ten} type="text" className="form-control" id placeholder />
                 </div>
                 <div className="form-group col-6 text-left">
                     <label htmlFor>Số điện thoại</label>
-                    <input onChange={this.handleChangeForm} name="sdt" value={this.state.sdt} type="text" className="form-control" id placeholder />
+                    <input onChange={this.props.handleChangeForm} name="sdt" value={sdt} type="text" className="form-control" id placeholder />
                 </div>
                 <div className="form-group col-6 text-left">
                     <label htmlFor>Email</label>
-                    <input onChange={this.handleChangeForm} name="mail" value={this.state.mail} type="text" className="form-control" id placeholder />
+                    <input onChange={this.props.handleChangeForm} name="mail" value={mail} type="text" className="form-control" id placeholder />
                 </div>
         </div>
-        <button onClick={() => { this.props.handleThemSv(this.state) }} className='btn btn-success'>Thêm sinh viên</button>
+        <button disabled={this.props.validThem} onClick={() => { this.props.handleThemSv({ma,ten,sdt,mail})}} className='btn btn-success mx-5'>Thêm sinh viên</button>
+        <button disabled={this.props.validCapNhat} onClick={() => { this.props.handleCapNhat({ma,ten,sdt,mail},this.props.indexEdit)}} className='btn btn-info mx-5'>Cập nhật sinh viên</button>
       </div>
     )
   }
@@ -46,7 +37,14 @@ export class Form extends Component {
 
 const mapStateToProps = (state) => {
   return { 
-    dssv: state.svReducer.dssv
+    ma: state.svReducer.ma,
+    ten: state.svReducer.ten,
+    sdt: state.svReducer.sdt,
+    mail: state.svReducer.mail,
+    dssv: state.svReducer.dssv,
+    indexEdit: state.svReducer.indexEdit,
+    validThem: state.svReducer.validThem,
+    validCapNhat: state.svReducer.validCapNhat,
   }
 }
 
@@ -58,7 +56,23 @@ const mapDispatchToProps = (dispatch) => {
         payload: sv,
       }
       dispatch(action)
-     }
+     },
+    handleChangeForm: (e) => { 
+      let action={
+        type: CHANGE_FORM,
+        payload: e,
+      }
+      dispatch(action)
+    },
+    handleCapNhat: (sv,index) => {
+      let action={
+        type: CAPNHAT_SV,
+        payload: {
+          sv, index,
+        }
+      }
+      dispatch(action)
+    }
   }
  }
 

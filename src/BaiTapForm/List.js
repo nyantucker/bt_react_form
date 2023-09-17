@@ -37,16 +37,6 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => { 
-  return {
-    // handleRenderDs: (dssv) => { 
-    //   let action={
-    //     type: RENDER_DS,
-    //     payload: dssv,
-    //   }
-    //   dispatch(action)
-    // }
-  }
- }
+const mapDispatchToProps = (dispatch) => {}
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)

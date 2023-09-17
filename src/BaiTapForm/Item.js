@@ -14,7 +14,7 @@ export class Item extends Component {
         <td>{mail}</td>
         <td>
             <button onClick={() => { this.props.handleXoaSv(this.props.sv) }} className='btn btn-danger'>Xóa</button>
-            <button className='btn btn-info'>Sửa</button>
+            <button onClick={() => { this.props.handleSuaSv(this.props.sv) }} className='btn btn-info'>Sửa</button>
         </td>
       </tr>
     )
